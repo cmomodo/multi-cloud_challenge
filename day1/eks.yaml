@@ -1,0 +1,35 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: CloudFormation template to create an IAM user with Admin privileges and generate access keys.
+
+Resources:
+  EKSUser:
+    Type: AWS::IAM::User
+    Properties:
+      UserName: eksuser
+
+  AdminPolicyAttachment:
+    Type: AWS::IAM::Policy
+    Properties:
+      PolicyName: AdminAccessPolicy
+      Users:
+        - !Ref EKSUser
+      PolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Effect: Allow
+            Action: "*"
+            Resource: "*"
+
+  EKSUserAccessKey:
+    Type: AWS::IAM::AccessKey
+    Properties:
+      UserName: !Ref EKSUser
+
+Outputs:
+  AccessKeyId:
+    Description: Access Key ID for the eksuser
+    Value: !Ref EKSUserAccessKey
+
+  SecretAccessKey:
+    Description: Secret Access Key for the eksuser
+    Value: !GetAtt EKSUserAccessKey.SecretAccessKey
