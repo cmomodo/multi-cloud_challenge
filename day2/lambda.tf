@@ -14,6 +14,54 @@ provider "aws" {
 
 
 
+# DynamoDB table for products
+resource "aws_dynamodb_table" "cloudmart_products" {
+  name         = "cloudmart-products"
+  billing_mode = "PAY_PER_REQUEST"
+  hash_key     = "id"
+
+  attribute {
+    name = "id"
+    type = "S"
+  }
+
+  tags = {
+    Name = "cloudmart-products"
+  }
+}
+
+# DynamoDB table for orders
+resource "aws_dynamodb_table" "cloudmart_orders" {
+  name         = "cloudmart-orders"
+  billing_mode = "PAY_PER_REQUEST"
+  hash_key     = "order_id"
+
+  attribute {
+    name = "order_id"
+    type = "S"
+  }
+
+  tags = {
+    Name = "cloudmart-orders"
+  }
+}
+
+# DynamoDB table for tickets
+resource "aws_dynamodb_table" "cloudmart_tickets" {
+  name         = "cloudmart-tickets"
+  billing_mode = "PAY_PER_REQUEST"
+  hash_key     = "ticket_id"
+
+  attribute {
+    name = "ticket_id"
+    type = "S"
+  }
+
+  tags = {
+    Name = "cloudmart-tickets"
+  }
+}
+
 # IAM Role for Lambda function
 resource "aws_iam_role" "lambda_role" {
   name = "cloudmart_lambda_role"
