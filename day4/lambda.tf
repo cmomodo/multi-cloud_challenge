@@ -135,3 +135,5 @@ resource "aws_lambda_permission" "allow_bedrock" {
 output "list_products_function_arn" {
   value = aws_lambda_function.list_products.arn
 }
+
+
